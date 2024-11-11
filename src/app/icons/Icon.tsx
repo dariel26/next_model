@@ -1,27 +1,25 @@
-"use client";
-
 import { createContext, ReactNode } from "react";
 
-export interface IconContextProps {
+export interface IconRootContextProps {
     classNameDefault: string;
     className?: string;
 }
 
-export const IconContext = createContext<IconContextProps>({ classNameDefault: "", className: "" });
+export const IconRootContext = createContext<IconRootContextProps>({ classNameDefault: "", className: "" });
 
-export interface IconProps {
+export interface IconRootProps {
     children?: ReactNode;
     className?: string;
     size?: "sm" | "md" | "lg";
 }
 
-export default function Icon(props: IconProps) {
+export default function IconRoot(props: IconRootProps) {
     //VARIABLES
     const classNameDefault = props.size === "sm" ? "h-[1.3rem]" : props.size === "md" ? "h-[1.6rem]" : "h-[1.9rem]";
 
     return (
-        <IconContext.Provider value={{ className: props.className, classNameDefault }}>
+        <IconRootContext.Provider value={{ className: props.className, classNameDefault }}>
             {props.children}
-        </IconContext.Provider>
+        </IconRootContext.Provider>
     );
 }

@@ -1,5 +1,3 @@
-"use client";
-
 import { ReactNode, useCallback, useState } from "react";
 
 export interface ButtonProps {

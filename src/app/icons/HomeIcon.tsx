@@ -1,11 +1,9 @@
-"use client";
-
 import { useContext } from "react";
-import { IconContext, IconProps } from "./Icon";
+import { IconRootContext } from "./Icon";
 
 export default function HomeIcon() {
     //CONTEXT
-    const { classNameDefault, className } = useContext(IconContext);
+    const { classNameDefault, className } = useContext(IconRootContext);
 
     return (
         <svg

@@ -1,6 +1,7 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import SYSTEM_ABOUT from "@/constants/systemAbout";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -14,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "EvoClínica",
-    description: "Sistema para gerenciamento de clínicas especializadas em terapia ABA.",
+    title: SYSTEM_ABOUT.TITLE,
+    description: SYSTEM_ABOUT.DESCRIPTION,
 };
 
 export default function RootLayout({

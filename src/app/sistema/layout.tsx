@@ -1,22 +1,34 @@
-import { ButtonImage, DefaultMenuSection, DefaultMenuNav, HeaderTitle, DefaultMenuLink } from "@/components";
+import {
+    BottomMenuLink,
+    BottomMenuTemplate,
+    ButtonImage,
+    HeaderTitle,
+    LateralMenuLink,
+    LateralMenuTemplate,
+    BottomMenuNav,
+    LateralMenuNav,
+} from "@/components";
+import SYSTEM_ABOUT from "@/constants/systemAbout";
+import { ReactNode } from "react";
 import { HomeIcon, ScheduleIcon } from "../icons";
-import Icon from "../icons/Icon";
 
-const NOME_DA_CLINICA = "EvoClínica";
+export interface SystemLayoutProps {
+    children?: ReactNode;
+}
 
-export default function LayoutSistema() {
+export default function SystemLayout(props: SystemLayoutProps) {
     return (
-        <section className="grid grid-rows-system-root w-svw font-sans">
+        <section className="grid grid-rows-[3rem_calc(100svh-3rem)] w-svw font-sans">
             <header className="inline-flex shrink-0 w-full h-full bg-dark p-1 ps-2 pe-2 content-center bg-primary justify-between">
                 <div className="inline-flex gap-2">
                     <ButtonImage
                         className="h-full aspect-square"
-                        title={NOME_DA_CLINICA}
+                        title={SYSTEM_ABOUT.TITLE}
                         alt="business-icon"
                         src="/icon.jpeg"
                         rounded="rounded-lg"
                     />
-                    <HeaderTitle className="self-center">{NOME_DA_CLINICA}</HeaderTitle>
+                    <HeaderTitle className="self-center">{SYSTEM_ABOUT.TITLE}</HeaderTitle>
                 </div>
                 <ButtonImage
                     className="h-full aspect-square"
@@ -26,30 +38,23 @@ export default function LayoutSistema() {
                     rounded="rounded-full"
                 />
             </header>
-            <DefaultMenuSection>
-                <DefaultMenuNav className="size-full">
-                    <DefaultMenuLink
-                        href="./home"
-                        icon={
-                            <Icon className="fill-foreground" size="sm">
-                                <HomeIcon />
-                            </Icon>
-                        }
-                    >
+            <LateralMenuTemplate>
+                <LateralMenuNav className="size-full">
+                    <LateralMenuLink href="./home" icon={<HomeIcon />}>
                         Home
-                    </DefaultMenuLink>
-                    <DefaultMenuLink
-                        href="./agenda"
-                        icon={
-                            <Icon className="fill-foreground" size="sm">
-                                <ScheduleIcon />
-                            </Icon>
-                        }
-                    >
+                    </LateralMenuLink>
+                    <LateralMenuLink href="./agenda" icon={<ScheduleIcon />}>
                         Agenda
-                    </DefaultMenuLink>
-                </DefaultMenuNav>
-            </DefaultMenuSection>
+                    </LateralMenuLink>
+                </LateralMenuNav>
+                <BottomMenuTemplate>
+                    {props.children}
+                    <BottomMenuNav className="size-full">
+                        <BottomMenuLink href={"./home"} icon={<HomeIcon />} />
+                        <BottomMenuLink href={"./agenda"} icon={<ScheduleIcon />} />
+                    </BottomMenuNav>
+                </BottomMenuTemplate>
+            </LateralMenuTemplate>
         </section>
     );
 }

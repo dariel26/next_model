@@ -1,19 +1,17 @@
-"use client";
-
 import { ReactNode, useCallback, useContext } from "react";
-import { MenuSectionContext } from "./DefaultMenuSection";
+import { LateralMenuTemplateContext } from "./LateralMenuTemplate";
 import Button from "@/components/buttons/Button";
 import { ColapseLeftIcon } from "@/app/icons";
-import Icon from "@/app/icons/Icon";
+import IconRoot from "@/app/icons/Icon";
 
-export interface DefaultMenuNav {
+export interface LateralMenuNav {
     children?: ReactNode;
     className?: string;
 }
 
-export default function DefaultMenuNav(props: DefaultMenuNav) {
+export default function LateralMenuNav(props: LateralMenuNav) {
     //HOOKS
-    const { setShrinkedMenu, shrinkedMenu } = useContext(MenuSectionContext);
+    const { setShrinkedMenu, shrinkedMenu } = useContext(LateralMenuTemplateContext);
 
     //VARIABLES
     const classNameButtonIfShrinked = shrinkedMenu ? "pe-[1.15rem]" : "";
@@ -29,7 +27,7 @@ export default function DefaultMenuNav(props: DefaultMenuNav) {
         <div className={`${props.className} overflow-hidden`}>
             <div className="flex size-full bg-background  border-r-2 border-neutral-300 overflow-y-auto overflow-x-hidden">
                 <div className="flex flex-col size-full justify-between">
-                    <nav className={`flex flex-col w-100 gap-2 p-3`}>{props.children}</nav>
+                    <nav className={`flex flex-col w-full gap-2 p-3`}>{props.children}</nav>
                     <Button
                         onClick={handleOnClickCloseOpenMenu}
                         className={`${classNameButtonIfShrinked} flex p-3 items-center justify-between h-12 border-t border-neutral-300 transition-all duration-300`}
@@ -41,12 +39,12 @@ export default function DefaultMenuNav(props: DefaultMenuNav) {
                         >
                             Fechar Menu
                         </span>
-                        <Icon
+                        <IconRoot
                             className={`${classNameIconIfShrinked} fill-foreground transition-rotate duration-300`}
                             size="md"
                         >
                             <ColapseLeftIcon />
-                        </Icon>
+                        </IconRoot>
                     </Button>
                 </div>
             </div>

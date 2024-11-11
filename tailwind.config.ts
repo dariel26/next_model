@@ -21,9 +21,6 @@ export default {
                 },
                 foreground: "var(--foreground)",
             },
-            gridTemplateRows: {
-                "system-root": "3rem calc(100svh - 3rem)",
-            },
         },
     },
     plugins: [],
