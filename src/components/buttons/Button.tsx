@@ -46,13 +46,13 @@ export default function Button({ variant, onClick, ...props }: ButtonProps) {
             onClick={handleOnClickButton}
             className={`${props.className} ${
                 props.rounded
-            } flex content-center p-1 ease-in-out duration-200 ${classNameByVariant()} select-none relative`}
+            } flex content-center items-center p-1 ease-in-out duration-200 ${classNameByVariant()} select-none relative`}
             title={props.title}
         >
             {props.children}
-            <div
-                className={`flex size-full absolute start-0 top-0 ${classNameByVariant()} ${loading ? "" : "hidden"}`}
-            ></div>
+            <div className={`flex size-full absolute start-0 top-0 ${classNameByVariant()} ${loading ? "" : "hidden"}`}>
+                {/*Something to show loading state*/}
+            </div>
         </button>
     );
 }

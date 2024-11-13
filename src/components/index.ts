@@ -4,36 +4,46 @@
 import Button from "./buttons/Button";
 import ButtonImage from "./buttons/ButtonImage";
 
+//GRIDS
+import GridLeftCol from "./grids/GridLeftCol";
+import GridBottomRow from "./grids/GridBottomRow";
+
 //HEADERS
 import HeaderTitle from "./headers/HeaderTitle";
+
+//LEYOUTS
+import LayoutSystemMenu from "./layouts/LayoutSystemMenu";
 
 //LINKS
 import NavLink from "./links/NavLink";
 
 //MENU
-import LateralMenuNav from "./menus/LateralMenu/LateralMenuNav";
-import LateralMenuLink from "./menus/LateralMenu/LateralMenuLink";
-import LateralMenuTemplate from "./menus/LateralMenu/LateralMenuTemplate";
-import BottomMenuTemplate from "./menus/BottomMenu/BottomMenuTemplate";
-import BottomMenuNav from "./menus/BottomMenu/BottomMenuNav";
-import BottomMenuLink from "./menus/BottomMenu/BottomMenuLink";
+import MenuDefault from "./menus/MenuDefault/MenuDefault";
+
+//TEXTS
+import Badge from "./texts/Badge";
 
 export {
     //BUTTONS
     Button,
     ButtonImage,
 
+    //GRIDS
+    GridLeftCol,
+    GridBottomRow,
+
     //HEADERS
     HeaderTitle,
+
+    //LAYOUT
+    LayoutSystemMenu,
 
     //LINKS
     NavLink,
 
     //MENU
-    LateralMenuNav,
-    LateralMenuLink,
-    LateralMenuTemplate,
-    BottomMenuTemplate,
-    BottomMenuNav,
-    BottomMenuLink,
+    MenuDefault,
+
+    //TEXT
+    Badge,
 };
