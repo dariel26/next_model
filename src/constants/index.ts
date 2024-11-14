@@ -1,5 +1,7 @@
 import SYSTEM_ABOUT from "./systemAbout";
 
-export default {
+const constants = {
     SYSTEM_ABOUT,
 };
+
+export default constants;

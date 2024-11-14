@@ -2,7 +2,8 @@ import { IconRoot } from "@/app/icons";
 import NavLink, { NavLinkProps } from "@/components/links/NavLink";
 import Badge from "@/components/texts/Badge";
 import { ReactNode, useContext } from "react";
-import { MenuDefaultContext } from "./MenuDefault";
+import { MenuDefaultContext, TDefaultMenuType } from "./MenuDefault";
+import { TLateralMenuMode } from "./MenuDefaultGrid";
 
 export interface MenuDefaultLinkProps extends NavLinkProps {
     icon: ReactNode;
@@ -11,23 +12,43 @@ export interface MenuDefaultLinkProps extends NavLinkProps {
 
 export default function MenuDefaultLink({ icon, newResource, children, ...props }: MenuDefaultLinkProps) {
     //CONTEXTS
-    const { type } = useContext(MenuDefaultContext);
+    const { lateralMenuMode, type } = useContext(MenuDefaultContext);
 
     //VARIABLES
-    const classSizeNavLink = type !== "rows" ? "w-[2.5rem]" : "w-full";
-    const classHideText = type !== "rows" ? "opacity-0 pointer-events-none" : "";
-    const classHideNewBadge = !newResource ? "hidden" : "";
+    const linkWidthType: Record<TDefaultMenuType, string> = {
+        cols: "!w-[2.5rem]",
+        rows: "w-full",
+    };
+    const linkWidthMode: Record<TLateralMenuMode, string> = {
+        "full-view": "w-full",
+        "short-view": "w-[2.5rem]",
+    };
+    const textOpacityType: Record<TDefaultMenuType, string> = {
+        cols: "opacity-0 pointer-events-none",
+        rows: "",
+    };
+    const textOpacityMode: Record<TLateralMenuMode, string> = {
+        "full-view": "",
+        "short-view": "opacity-0 pointer-events-none",
+    };
 
     return (
-        <NavLink className={`h-[2.3rem] ${classSizeNavLink} transition-width duration-300`} {...props}>
+        <NavLink
+            className={`h-[2.3rem] ${linkWidthMode[lateralMenuMode]} ${linkWidthType[type]} transition-width duration-300`}
+            {...props}
+        >
             <div className="flex size-full items-center gap-2 ps-2 relative">
                 <div>
                     <IconRoot size="sm" className="fill-foreground">
                         {icon}
                     </IconRoot>
                 </div>
-                <div className={`${classHideText} transition-opacity duration-300`}>{children}</div>
-                <Badge className={classHideNewBadge} size="sm">
+                <div
+                    className={`${textOpacityMode[lateralMenuMode]} ${textOpacityType[type]} transition-opacity duration-300`}
+                >
+                    {children}
+                </div>
+                <Badge className={newResource ? "" : "hidden"} size="sm">
                     New
                 </Badge>
             </div>

@@ -5,7 +5,6 @@ import Button from "./buttons/Button";
 import ButtonImage from "./buttons/ButtonImage";
 
 //GRIDS
-import GridLeftCol from "./grids/GridLeftCol";
 import GridBottomRow from "./grids/GridBottomRow";
 
 //HEADERS
@@ -19,6 +18,8 @@ import NavLink from "./links/NavLink";
 
 //MENU
 import MenuDefault from "./menus/MenuDefault/MenuDefault";
+import MenuDefaultGrid from "./menus/MenuDefault/MenuDefaultGrid";
+
 
 //TEXTS
 import Badge from "./texts/Badge";
@@ -29,7 +30,7 @@ export {
     ButtonImage,
 
     //GRIDS
-    GridLeftCol,
+    MenuDefaultGrid,
     GridBottomRow,
 
     //HEADERS
