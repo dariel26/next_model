@@ -25,8 +25,8 @@ export default function MenuDefaultLink({ icon, newResource, children, className
                 <div>{icon}</div>
                 <div
                     className={twMerge(
-                        "font-medium transition-opacity duration-300",
-                        (type === "cols" || lateralMenuMode === "short-view") && "pointer-events-none opacity-0"
+                        "font-medium",
+                        (type === "cols" || lateralMenuMode === "short-view") && "hidden"
                     )}
                 >
                     {children}

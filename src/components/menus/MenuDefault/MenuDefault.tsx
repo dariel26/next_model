@@ -63,35 +63,37 @@ export default function MenuDefault({ type, setLateralMenuMode, lateralMenuMode,
                             onClick={props.onClickSeeMore}
                             title="Open Menu"
                             variant="transparent"
-                            className="h-100 rounded-md"
+                            className="h-full rounded-md"
                         >
-                            <MenuIcon className="" />
+                            <MenuIcon className="size-icon-sm" />
                         </Button>
                     )}
                 </nav>
-                <Button
-                    onClick={onClickCollapsedButton}
-                    className="flex size-full justify-center overflow-hidden border-t border-neutral-300 transition-all duration-300"
-                    title="Shrink Menu"
-                    variant="transparent"
-                >
-                    <span
-                        className={twMerge(
-                            "center me-[3rem] whitespace-nowrap font-bold transition-all duration-300",
-                            collapsedButtonMode[lateralMenuModeDefined]
-                        )}
+                {setLateralMenuMode && (
+                    <Button
+                        onClick={onClickCollapsedButton}
+                        className="hidden size-full justify-center overflow-hidden border-t border-neutral-300 transition-all duration-300 md:flex"
+                        title="Shrink Menu"
+                        variant="transparent"
                     >
-                        Encolher menu
-                    </span>
-                    <div
-                        className={twMerge(
-                            "transition-rotate fill-foreground duration-300",
-                            collapsedButtonIconMode[lateralMenuModeDefined]
-                        )}
-                    >
-                        <ColapseLeftIcon className="size-icon-md" />
-                    </div>
-                </Button>
+                        <span
+                            className={twMerge(
+                                "center me-[3rem] whitespace-nowrap font-bold transition-all duration-300",
+                                collapsedButtonMode[lateralMenuModeDefined]
+                            )}
+                        >
+                            Encolher menu
+                        </span>
+                        <div
+                            className={twMerge(
+                                "transition-rotate fill-foreground duration-300",
+                                collapsedButtonIconMode[lateralMenuModeDefined]
+                            )}
+                        >
+                            <ColapseLeftIcon className="size-icon-md" />
+                        </div>
+                    </Button>
+                )}
             </section>
         </MenuDefaultContext.Provider>
     );

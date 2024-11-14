@@ -18,6 +18,9 @@ import MenuDefault from "./menus/MenuDefault/MenuDefault";
 import MenuDefaultGrid from "./menus/MenuDefault/MenuDefaultGrid";
 import MenuDefaultLink from "./menus/MenuDefault/MenuDefaultLink";
 
+//OFFCANVAS
+import Offcanvas from "./offcanvas/Offcanvas";
+
 //TEXTS
 import Badge from "./texts/Badge";
 
@@ -39,6 +42,9 @@ export {
     MenuDefault,
     MenuDefaultGrid,
     MenuDefaultLink,
+
+    //OFFCANVAS
+    Offcanvas,
 
     //TEXT
     Badge,

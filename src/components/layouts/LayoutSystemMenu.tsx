@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import MenuDefault from "../menus/MenuDefault/MenuDefault";
 import MenuDefaultLink from "../menus/MenuDefault/MenuDefaultLink";
-import { HomeIcon, ScheduleIcon, TableIcon } from "@/app/icons";
+import { DashboardIcon, HomeIcon, ScheduleIcon, TableIcon } from "@/app/icons";
 import MenuDefaultGrid from "../menus/MenuDefault/MenuDefaultGrid";
 import HeaderDefault from "../headers/HeaderDefault";
 
@@ -23,6 +23,9 @@ export default function LayoutSystemMenu(props: LayoutSystemMenuProps) {
                     </MenuDefaultLink>
                     <MenuDefaultLink href={"./tabela"} icon={<TableIcon className="size-icon-sm" />}>
                         Tabela
+                    </MenuDefaultLink>
+                    <MenuDefaultLink href={"./dashboards"} icon={<DashboardIcon className="size-icon-sm" />}>
+                        Dashboards
                     </MenuDefaultLink>
                 </MenuDefault>
                 {props.children}
