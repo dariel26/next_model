@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Button, { ButtonProps } from "./Button";
+import { twMerge } from "tailwind-merge";
 
 export interface ButtonImageProps extends ButtonProps {
     alt: string;
@@ -15,7 +16,7 @@ export default function ButtonImage({ alt, src, ...rest }: ButtonImageProps) {
                 src={src}
                 width={512}
                 height={512}
-                className={`${rest.rounded} object-cover w-full h-full`}
+                className={twMerge("h-full w-full object-cover", rest.className)}
             />
         </Button>
     );

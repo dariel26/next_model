@@ -1,7 +1,8 @@
-import { ColapseLeftIcon, IconRoot, MenuIcon } from "@/app/icons";
+import { ColapseLeftIcon, MenuIcon } from "@/app/icons";
 import Button from "@/components/buttons/Button";
 import React, { createContext, ReactNode, useCallback } from "react";
 import { TLateralMenuMode } from "./MenuDefaultGrid";
+import { twMerge } from "tailwind-merge";
 
 export type TDefaultMenuType = "rows" | "cols";
 
@@ -41,7 +42,7 @@ export default function MenuDefault({ type, setLateralMenuMode, lateralMenuMode,
     };
     const navFlexType: Record<TDefaultMenuType, string> = {
         cols: "flex-row overflow-none items-center justify-around",
-        rows: "flex-col overflow-x-hidden overflow-y-auto gap-y-2",
+        rows: "flex-col overflow-x-hidden overflow-y-auto gap-y-1",
     };
     const childrenArr = React.Children.toArray(props.children);
     const filteredChildren = type === "cols" ? childrenArr.slice(0, 3) : childrenArr;
@@ -54,8 +55,8 @@ export default function MenuDefault({ type, setLateralMenuMode, lateralMenuMode,
 
     return (
         <MenuDefaultContext.Provider value={{ lateralMenuMode: lateralMenuModeDefined, type: typeMenuDefined }}>
-            <section className={`${menuGridType[typeMenuDefined]} size-full `}>
-                <nav className={`${navFlexType[typeMenuDefined]} flex  size-full p-3`}>
+            <section className={twMerge("size-full", menuGridType[typeMenuDefined])}>
+                <nav className={twMerge("flex size-full p-3", navFlexType[typeMenuDefined])}>
                     {filteredChildren}
                     {type === "cols" && childrenArr.length > 3 && (
                         <Button
@@ -64,29 +65,32 @@ export default function MenuDefault({ type, setLateralMenuMode, lateralMenuMode,
                             variant="transparent"
                             className="h-100 rounded-md"
                         >
-                            <IconRoot className="size-full fill-foreground" size="md">
-                                <MenuIcon />
-                            </IconRoot>
+                            <MenuIcon className="" />
                         </Button>
                     )}
                 </nav>
                 <Button
                     onClick={onClickCollapsedButton}
-                    className={`flex size-full justify-center border-t border-neutral-300 transition-all duration-300 overflow-hidden`}
+                    className="flex size-full justify-center overflow-hidden border-t border-neutral-300 transition-all duration-300"
                     title="Shrink Menu"
                     variant="transparent"
                 >
                     <span
-                        className={`${collapsedButtonMode[lateralMenuModeDefined]} center me-[3rem] font-bold whitespace-nowrap transition-all duration-300`}
+                        className={twMerge(
+                            "center me-[3rem] whitespace-nowrap font-bold transition-all duration-300",
+                            collapsedButtonMode[lateralMenuModeDefined]
+                        )}
                     >
                         Encolher menu
                     </span>
-                    <IconRoot
-                        className={`${collapsedButtonIconMode[lateralMenuModeDefined]} fill-foreground transition-rotate duration-300`}
-                        size="md"
+                    <div
+                        className={twMerge(
+                            "transition-rotate fill-foreground duration-300",
+                            collapsedButtonIconMode[lateralMenuModeDefined]
+                        )}
                     >
-                        <ColapseLeftIcon />
-                    </IconRoot>
+                        <ColapseLeftIcon className="size-icon-md" />
+                    </div>
                 </Button>
             </section>
         </MenuDefaultContext.Provider>

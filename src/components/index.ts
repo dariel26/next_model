@@ -4,11 +4,8 @@
 import Button from "./buttons/Button";
 import ButtonImage from "./buttons/ButtonImage";
 
-//GRIDS
-import GridBottomRow from "./grids/GridBottomRow";
-
 //HEADERS
-import HeaderTitle from "./headers/HeaderTitle";
+import HeaderDefault from "./headers/HeaderDefault";
 
 //LEYOUTS
 import LayoutSystemMenu from "./layouts/LayoutSystemMenu";
@@ -19,7 +16,7 @@ import NavLink from "./links/NavLink";
 //MENU
 import MenuDefault from "./menus/MenuDefault/MenuDefault";
 import MenuDefaultGrid from "./menus/MenuDefault/MenuDefaultGrid";
-
+import MenuDefaultLink from "./menus/MenuDefault/MenuDefaultLink";
 
 //TEXTS
 import Badge from "./texts/Badge";
@@ -29,12 +26,8 @@ export {
     Button,
     ButtonImage,
 
-    //GRIDS
-    MenuDefaultGrid,
-    GridBottomRow,
-
     //HEADERS
-    HeaderTitle,
+    HeaderDefault,
 
     //LAYOUT
     LayoutSystemMenu,
@@ -44,6 +37,8 @@ export {
 
     //MENU
     MenuDefault,
+    MenuDefaultGrid,
+    MenuDefaultLink,
 
     //TEXT
     Badge,

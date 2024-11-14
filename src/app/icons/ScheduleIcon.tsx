@@ -1,13 +1,9 @@
-import { useContext } from "react";
-import { IconRootContext } from "./Icon";
+import { twMerge } from "tailwind-merge";
 
-export default function ScheduleIcon() {
-    //CONTEXT
-    const { classNameDefault, className } = useContext(IconRootContext);
-
+export default function ScheduleIcon(props: { className?: string }) {
     return (
         <svg
-            className={[classNameDefault, className].join(" ")}
+            className={twMerge("fill-current", props.className)}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -960 960 960"
         >
