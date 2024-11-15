@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import SYSTEM_ABOUT from "@/constants/systemAbout";
+import SYSTEM_ABOUT from "@/constants/system-about";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 export const metadata: Metadata = {
     title: SYSTEM_ABOUT.TITLE,
@@ -13,9 +14,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="pt-Br">
-            <body className={` antialiased h-svh w-svw overflow-hidden`}>
-                {children}
+        <html lang="pt-Br" suppressHydrationWarning>
+            <body>
+                <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                    {children}
+                </ThemeProvider>
             </body>
         </html>
     );

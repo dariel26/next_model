@@ -1,3 +1,5 @@
+import TableModel from "@/components/tables/table-model";
+
 export default function SchedulePage() {
-    return <h5>Table</h5>;
+    return <TableModel />;
 }

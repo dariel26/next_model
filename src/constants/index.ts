@@ -1,4 +1,4 @@
-import SYSTEM_ABOUT from "./systemAbout";
+import SYSTEM_ABOUT from "./system-about";
 
 const constants = {
     SYSTEM_ABOUT,
