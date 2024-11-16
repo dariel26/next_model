@@ -1,3 +1,5 @@
+import DefaultLayout from "@/components/layouts/default-layout";
+
 export default function SchedulePage() {
-    return <h5>Schedule</h5>;
+    return <DefaultLayout title="Calendar" />;
 }

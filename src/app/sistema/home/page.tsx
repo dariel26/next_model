@@ -1,3 +1,5 @@
+import DefaultLayout from "@/components/layouts/default-layout";
+
 export default function HomePage() {
-    return <h5>Home</h5>;
+    return <DefaultLayout title="Home"></DefaultLayout>;
 }

@@ -17,6 +17,7 @@ import { Calendar, Home, LayoutDashboard, Table2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { NavUser } from "../navs/nav-user";
+import { NavTheme } from "../navs/nav-theme";
 
 export function AppSidebar() {
     const items = [
@@ -86,6 +87,7 @@ export function AppSidebar() {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
+                <NavTheme />
                 <NavUser user={{ name: "Usuário A", email: "usuarioA@example.com", avatar: "/user.jpg" }} />
             </SidebarFooter>
         </Sidebar>
