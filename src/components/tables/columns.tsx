@@ -48,16 +48,16 @@ export const columns: ColumnDef<Payment>[] = [
     {
         accessorKey: "status",
         header: ({ column }) => <Order column={column}> Status </Order>,
-        meta: { filterVariant: "enum" },
+        meta: { columnType: "string" },
     },
     {
         accessorKey: "email",
         header: ({ column }) => <Order column={column}> Email </Order>,
-        meta: { filterVariant: "string" },
+        meta: { columnType: "string" },
     },
     {
         accessorKey: "amount",
-        meta: { filterVariant: "number" },
+        meta: { columnType: "number" },
         header: ({ column }) => <Order column={column}>Amount</Order>,
         cell: ({ row }) => {
             const amount = parseFloat(row.getValue("amount"));

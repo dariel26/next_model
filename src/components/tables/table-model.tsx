@@ -21,10 +21,13 @@ import { useState } from "react";
 import Filter from "./filter";
 import { cn } from "@/lib/utils";
 
-export type TableFilterVariant = "string" | "number" | "date" | "enum";
+export type ColumnType = "string" | "number" | "date";
+
 declare module "@tanstack/react-table" {
     interface ColumnMeta<TData extends RowData, TValue> {
-        filterVariant?: TData | TValue | TableFilterVariant;
+        columnType?: ColumnType;
+        data?: TData[];
+        value?: TValue;
     }
 }
 
@@ -66,7 +69,7 @@ export function TableModel<TData, TValue>({ columns, data }: DataTableProps<TDat
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
-                                const { filterVariant } = header.column.columnDef.meta ?? {};
+                                const { columnType: filterVariant } = header.column.columnDef.meta ?? {};
                                 return (
                                     <TableHead
                                         key={header.id}
@@ -83,7 +86,8 @@ export function TableModel<TData, TValue>({ columns, data }: DataTableProps<TDat
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
-                                const { filterVariant } = header.column.columnDef.meta ?? {};
+                                const { columnType: filterVariant } = header.column.columnDef.meta ?? {};
+
                                 return (
                                     <TableHead
                                         key={header.id}
