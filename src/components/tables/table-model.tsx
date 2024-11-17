@@ -1,6 +1,7 @@
 "use client";
 
 import {
+    RowData,
     ColumnDef,
     ColumnFiltersState,
     flexRender,
@@ -11,18 +12,21 @@ import {
     SortingState,
     useReactTable,
     VisibilityState,
+    getFacetedUniqueValues,
 } from "@tanstack/react-table";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { Input } from "../ui/input";
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import Filter from "./filter";
+import { cn } from "@/lib/utils";
+
+export type TableFilterVariant = "string" | "number" | "date" | "enum";
+declare module "@tanstack/react-table" {
+    interface ColumnMeta<TData extends RowData, TValue> {
+        filterVariant?: TData | TValue | TableFilterVariant;
+    }
+}
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -40,10 +44,11 @@ export function TableModel<TData, TValue>({ columns, data }: DataTableProps<TDat
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        onSortingChange: setSorting,
+        getFacetedUniqueValues: getFacetedUniqueValues(),
         getSortedRowModel: getSortedRowModel(),
-        onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
+        onSortingChange: setSorting,
+        onColumnFiltersChange: setColumnFilters,
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
         state: {
@@ -55,49 +60,42 @@ export function TableModel<TData, TValue>({ columns, data }: DataTableProps<TDat
     });
 
     return (
-        <div className="relative grid h-full grid-rows-[auto_1fr_auto] rounded-md border">
-            <div className="m-2 flex items-center gap-2">
-                <Input
-                    placeholder="Filter emails..."
-                    value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) => table.getColumn("email")?.setFilterValue(event.target.value)}
-                    className="max-w-sm"
-                />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
-                            Columns
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {table
-                            .getAllColumns()
-                            .filter((column) => column.getCanHide())
-                            .map((column) => {
-                                return (
-                                    <DropdownMenuCheckboxItem
-                                        key={column.id}
-                                        className="capitalize"
-                                        checked={column.getIsVisible()}
-                                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                                    >
-                                        {column.id}
-                                    </DropdownMenuCheckboxItem>
-                                );
-                            })}
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
+        <div className="relative grid h-full grid-rows-[1fr_auto] overflow-hidden rounded-md border">
             <Table>
                 <TableHeader className="bg-sidebar-background">
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
+                                const { filterVariant } = header.column.columnDef.meta ?? {};
                                 return (
-                                    <TableHead key={header.id}>
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(header.column.columnDef.header, header.getContext())}
+                                    <TableHead
+                                        key={header.id}
+                                        className={cn("border py-1", filterVariant === "number" && "text-end")}
+                                    >
+                                        {header.isPlaceholder ? null : (
+                                            <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
+                                        )}
+                                    </TableHead>
+                                );
+                            })}
+                        </TableRow>
+                    ))}
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <TableRow key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => {
+                                const { filterVariant } = header.column.columnDef.meta ?? {};
+                                return (
+                                    <TableHead
+                                        key={header.id}
+                                        className={cn("py-1", filterVariant === "number" && "text-end")}
+                                    >
+                                        {header.isPlaceholder ? null : (
+                                            <div>
+                                                {header.column.getCanFilter() ? (
+                                                    <Filter column={header.column} />
+                                                ) : undefined}
+                                            </div>
+                                        )}
                                     </TableHead>
                                 );
                             })}

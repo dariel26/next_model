@@ -9,11 +9,6 @@ export default {
     ],
     theme: {
         extend: {
-            size: {
-                "icon-sm": "1.4rem",
-                "icon-md": "1.7rem",
-                "icon-lg": "1.9rem",
-            },
             colors: {
                 primary: {
                     DEFAULT: "hsl(var(--primary))",

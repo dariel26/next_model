@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +13,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "../ui/checkbox";
+import Order from "./order";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -28,6 +29,7 @@ export const columns: ColumnDef<Payment>[] = [
         id: "select",
         header: ({ table }) => (
             <Checkbox
+                className="me-2"
                 checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
                 onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
                 aria-label="Select all"
@@ -45,22 +47,18 @@ export const columns: ColumnDef<Payment>[] = [
     },
     {
         accessorKey: "status",
-        header: "Status",
+        header: ({ column }) => <Order column={column}> Status </Order>,
+        meta: { filterVariant: "enum" },
     },
     {
         accessorKey: "email",
-        header: ({ column }) => {
-            return (
-                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                    Email
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
+        header: ({ column }) => <Order column={column}> Email </Order>,
+        meta: { filterVariant: "string" },
     },
     {
         accessorKey: "amount",
-        header: () => <div className="text-right">Amount</div>,
+        meta: { filterVariant: "number" },
+        header: ({ column }) => <Order column={column}>Amount</Order>,
         cell: ({ row }) => {
             const amount = parseFloat(row.getValue("amount"));
             const formatted = new Intl.NumberFormat("pt-Br", {
