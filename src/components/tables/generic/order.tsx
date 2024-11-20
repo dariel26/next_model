@@ -1,9 +1,9 @@
 import { DropdownMenu, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Column } from "@tanstack/react-table";
 import { ReactNode } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { ArrowDownAZ, ArrowUpZA, Minus } from "lucide-react";
-import { DropdownMenuCheckboxItem, DropdownMenuContent } from "../ui/dropdown-menu";
+import { DropdownMenuCheckboxItem, DropdownMenuContent } from "../../ui/dropdown-menu";
 
 export default function Order<T>({ column, children }: { column: Column<T, unknown>; children?: ReactNode }) {
     return (

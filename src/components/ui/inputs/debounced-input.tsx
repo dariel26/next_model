@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Input } from "./input";
 
 export type DebouncedInputProps = {
-    value: string | number;
-    onChange: (value: string | number) => void;
+    value: string;
+    onChange: (value: string) => void;
     debounce?: number;
 } & React.ComponentProps<"input">;
 

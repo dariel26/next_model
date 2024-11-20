@@ -1,6 +1,6 @@
 import DefaultLayout from "@/components/layouts/default-layout";
-import { TableModel } from "@/components/tables/table-model";
-import { Payment, columns } from "@/components/tables/columns";
+import { GenericTable } from "@/components/tables/generic/generic-table";
+import { Payment, columns } from "@/components/tables/generic/columns";
 
 async function getData(): Promise<Payment[]> {
     // Fetch data from your API here.
@@ -10,12 +10,14 @@ async function getData(): Promise<Payment[]> {
             amount: 100,
             status: "pending",
             email: "m@example.com",
+            date: new Date(),
         },
         {
             id: "489e1d42",
             amount: 125,
             status: "processing",
             email: "example@gmail.com",
+            date: new Date(),
         },
     ];
 }
@@ -25,7 +27,7 @@ export default async function SchedulePage() {
 
     return (
         <DefaultLayout title="Table">
-            <TableModel columns={columns} data={data} />
+            <GenericTable columns={columns} data={data} />
         </DefaultLayout>
     );
 }

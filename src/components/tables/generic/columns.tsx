@@ -12,8 +12,11 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "../../ui/checkbox";
 import Order from "./order";
+import { numberFilterFn } from "./filter/filter-variant/number-variant";
+import SYSTEM_ABOUT from "@/constants/system-about";
+import { dateFilterFn } from "./filter/filter-variant/date-variant";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -22,6 +25,7 @@ export type Payment = {
     amount: number;
     status: "pending" | "processing" | "success" | "failed";
     email: string;
+    date: Date;
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -56,12 +60,28 @@ export const columns: ColumnDef<Payment>[] = [
         meta: { columnType: "string" },
     },
     {
+        accessorKey: "date",
+        header: ({ column }) => <Order column={column}> Date </Order>,
+        meta: { columnType: "date" },
+        filterFn: dateFilterFn,
+        cell: ({ row }) => {
+            const date = row.getValue("date") as Date;
+            const formatted = date.toLocaleDateString(SYSTEM_ABOUT.LOCALE, {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+            });
+            return <div className="text-right font-medium">{formatted}</div>;
+        },
+    },
+    {
         accessorKey: "amount",
         meta: { columnType: "number" },
         header: ({ column }) => <Order column={column}>Amount</Order>,
+        filterFn: numberFilterFn,
         cell: ({ row }) => {
             const amount = parseFloat(row.getValue("amount"));
-            const formatted = new Intl.NumberFormat("pt-Br", {
+            const formatted = new Intl.NumberFormat(SYSTEM_ABOUT.LOCALE, {
                 style: "currency",
                 currency: "BRL",
             }).format(amount);

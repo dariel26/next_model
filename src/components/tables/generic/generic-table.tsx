@@ -13,13 +13,14 @@ import {
     useReactTable,
     VisibilityState,
     getFacetedUniqueValues,
+    Table as TableProps,
 } from "@tanstack/react-table";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useState } from "react";
-import Filter from "./filter";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/tailwind";
+import Filter from "./filter/filter";
 
 export type ColumnType = "string" | "number" | "date";
 
@@ -36,7 +37,7 @@ interface DataTableProps<TData, TValue> {
     data: TData[];
 }
 
-export function TableModel<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function GenericTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -66,45 +67,8 @@ export function TableModel<TData, TValue>({ columns, data }: DataTableProps<TDat
         <div className="relative grid h-full grid-rows-[1fr_auto] overflow-hidden rounded-md border">
             <Table>
                 <TableHeader className="bg-sidebar-background">
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => {
-                                const { columnType: filterVariant } = header.column.columnDef.meta ?? {};
-                                return (
-                                    <TableHead
-                                        key={header.id}
-                                        className={cn("border py-1", filterVariant === "number" && "text-end")}
-                                    >
-                                        {header.isPlaceholder ? null : (
-                                            <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
-                                        )}
-                                    </TableHead>
-                                );
-                            })}
-                        </TableRow>
-                    ))}
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => {
-                                const { columnType: filterVariant } = header.column.columnDef.meta ?? {};
-
-                                return (
-                                    <TableHead
-                                        key={header.id}
-                                        className={cn("py-1", filterVariant === "number" && "text-end")}
-                                    >
-                                        {header.isPlaceholder ? null : (
-                                            <div>
-                                                {header.column.getCanFilter() ? (
-                                                    <Filter column={header.column} />
-                                                ) : undefined}
-                                            </div>
-                                        )}
-                                    </TableHead>
-                                );
-                            })}
-                        </TableRow>
-                    ))}
+                    <HeaderTitles table={table} />
+                    <HeaderFilter table={table} />
                 </TableHeader>
                 <TableBody>
                     {table.getRowModel().rows?.length ? (
@@ -126,6 +90,7 @@ export function TableModel<TData, TValue>({ columns, data }: DataTableProps<TDat
                     )}
                 </TableBody>
             </Table>
+
             <div className="m-2 flex items-center justify-end gap-1">
                 <div className="text-muted-foreground flex-1 text-sm">
                     {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length}{" "}
@@ -144,5 +109,53 @@ export function TableModel<TData, TValue>({ columns, data }: DataTableProps<TDat
                 </Button>
             </div>
         </div>
+    );
+}
+
+function HeaderTitles<TData>(props: { table: TableProps<TData> }) {
+    return (
+        <>
+            {props.table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                        const { columnType } = header.column.columnDef.meta ?? {};
+                        return (
+                            <TableHead
+                                key={header.id}
+                                className={cn("border py-1", columnType === "number" && "text-end")}
+                            >
+                                {header.isPlaceholder ? null : (
+                                    <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
+                                )}
+                            </TableHead>
+                        );
+                    })}
+                </TableRow>
+            ))}
+        </>
+    );
+}
+
+function HeaderFilter<TData>(props: { table: TableProps<TData> }) {
+    return (
+        <>
+            {props.table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                        const { columnType } = header.column.columnDef.meta ?? {};
+
+                        return (
+                            <TableHead key={header.id} className={cn("py-1", columnType === "number" && "text-end")}>
+                                {header.isPlaceholder ? null : (
+                                    <div>
+                                        {header.column.getCanFilter() ? <Filter column={header.column} /> : undefined}
+                                    </div>
+                                )}
+                            </TableHead>
+                        );
+                    })}
+                </TableRow>
+            ))}
+        </>
     );
 }
