@@ -33,11 +33,11 @@ export default function VariantCommon({ children, filterActive, resetFilterFn }:
                     <Button className="relative h-full p-2 !ring-primary" variant={"ghost"}>
                         <ListFilter className={cn(filterActive && "text-primary-foreground")} />
                         {filterActive && (
-                            <div className="bg-primary-foreground absolute bottom-0 end-0 m-1 size-2 rounded-full" />
+                            <div className="absolute bottom-0 end-0 m-1 size-2 rounded-full bg-primary-foreground" />
                         )}
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="max-h-[70svh] p-0 w-auto max-w-lg">
+                <PopoverContent className="max-h-[70svh] w-auto min-w-48 max-w-lg p-0">
                     {popoverContent}
                     <div className="w-full p-1">
                         <Button className="w-full" onClick={resetFilterFn}>

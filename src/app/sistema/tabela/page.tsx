@@ -11,6 +11,7 @@ async function getData(): Promise<Payment[]> {
             status: "pending",
             email: "m@example.com",
             date: new Date(),
+            scheduled: true,
         },
         {
             id: "489e1d42",
@@ -18,11 +19,12 @@ async function getData(): Promise<Payment[]> {
             status: "processing",
             email: "example@gmail.com",
             date: new Date(),
+            scheduled: false,
         },
     ];
 }
 
-export default async function SchedulePage() {
+export default async function TablePage() {
     const data = await getData();
 
     return (

@@ -22,7 +22,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils/tailwind";
 import Filter from "./filter/filter";
 
-export type ColumnType = "string" | "number" | "date";
+export type ColumnType = "string" | "number" | "date" | "boolean";
 
 declare module "@tanstack/react-table" {
     interface ColumnMeta<TData extends RowData, TValue> {

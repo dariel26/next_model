@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { Check, Minus, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +17,7 @@ import Order from "./order";
 import { numberFilterFn } from "./filter/filter-variant/number-variant";
 import SYSTEM_ABOUT from "@/constants/system-about";
 import { dateFilterFn } from "./filter/filter-variant/date-variant";
+import { booleanFilterFn } from "./filter/filter-variant/boolean-variant";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -26,6 +27,7 @@ export type Payment = {
     status: "pending" | "processing" | "success" | "failed";
     email: string;
     date: Date;
+    scheduled: boolean;
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -71,7 +73,21 @@ export const columns: ColumnDef<Payment>[] = [
                 month: "2-digit",
                 year: "numeric",
             });
-            return <div className="text-right font-medium">{formatted}</div>;
+            return <div className="font-medium">{formatted}</div>;
+        },
+    },
+    {
+        accessorKey: "scheduled",
+        header: ({ column }) => <Order column={column}>Scheduled</Order>,
+        meta: { columnType: "boolean" },
+        filterFn: booleanFilterFn,
+        cell: ({ row }) => {
+            const scheduled = row.getValue("scheduled") as boolean;
+            return (
+                <div className="flex w-full justify-center">
+                    {scheduled ? <Check className="h-5" /> : <Minus className="h-5" />}
+                </div>
+            );
         },
     },
     {
