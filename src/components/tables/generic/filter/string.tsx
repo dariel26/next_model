@@ -1,14 +1,12 @@
 import { Check } from "lucide-react";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../../../../ui/command";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../../../ui/command";
 import { cn } from "@/lib/utils/tailwind";
 import { ChangeEvent, useCallback, useMemo } from "react";
-import { FilterProps } from "../filter";
-import VariantCommon from "./variant-common";
+import CommomFilter from "./commom";
 import DebouncedInput from "@/components/ui/inputs/debounced-input";
+import { StringFilterProps } from "./types/index.dt";
 
-export type StringVariantProps<T> = {} & FilterProps<T>;
-
-export default function StringVariant<T>({ column }: StringVariantProps<T>) {
+export default function StringFilter<T>({ column }: StringFilterProps<T>) {
     //VARIABES
     const filterValue = column.getFilterValue() as string | undefined;
     const setFilterValue = column.setFilterValue;
@@ -31,7 +29,7 @@ export default function StringVariant<T>({ column }: StringVariantProps<T>) {
     }, [setFilterValue, filterValue]);
 
     return (
-        <VariantCommon filterActive={filterValue !== undefined} resetFilterFn={handleOnResetFilter}>
+        <CommomFilter filterActive={filterValue !== undefined} resetFilterFn={handleOnResetFilter}>
             <DebouncedInput value={filterValue ?? ""} onChange={handleOnChange} />
             <Command>
                 <CommandInput placeholder="Search..." />
@@ -52,6 +50,6 @@ export default function StringVariant<T>({ column }: StringVariantProps<T>) {
                     </CommandGroup>
                 </CommandList>
             </Command>
-        </VariantCommon>
+        </CommomFilter>
     );
 }

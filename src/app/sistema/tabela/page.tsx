@@ -1,8 +1,8 @@
 import DefaultLayout from "@/components/layouts/default-layout";
 import { GenericTable } from "@/components/tables/generic/generic-table";
-import { Payment, columns } from "@/components/tables/generic/columns";
+import { GenericColumn, GenericColumnType } from "@/components/tables/generic/types/index.dt";
 
-async function getData(): Promise<Payment[]> {
+async function getData() {
     // Fetch data from your API here.
     return [
         {
@@ -26,10 +26,17 @@ async function getData(): Promise<Payment[]> {
 
 export default async function TablePage() {
     const data = await getData();
+    const genericColumns: GenericColumn[] = [
+        { columnType: GenericColumnType.NUMBER, accessorKey: "amount", label: "Amount" },
+        { columnType: GenericColumnType.STRING, accessorKey: "status", label: "Status" },
+        { columnType: GenericColumnType.DATE, accessorKey: "date", label: "Date" },
+        { columnType: GenericColumnType.BOOLEAN, accessorKey: "scheduled", label: "Scheduled" },
+        { columnType: GenericColumnType.STRING, accessorKey: "email", label: "E-mail" },
+    ];
 
     return (
         <DefaultLayout title="Table">
-            <GenericTable columns={columns} data={data} />
+            <GenericTable genericColumns={genericColumns} data={data} />
         </DefaultLayout>
     );
 }

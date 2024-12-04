@@ -1,13 +1,14 @@
-import React, { ReactElement, ReactNode, useState } from "react";
-import DebouncedInput, { DebouncedInputProps } from "../../../../ui/inputs/debounced-input";
-import { Button } from "../../../../ui/button";
+import React, { ReactElement, useState } from "react";
 import { ListFilter } from "lucide-react";
 import { cn } from "@/lib/utils/tailwind";
-import { Popover, PopoverContent, PopoverTrigger } from "../../../../ui/popover";
+import { CommomFilterProps } from "./types/index.dt";
+import DebouncedInput, { DebouncedInputProps } from "@/components/ui/inputs/debounced-input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 
-export type VariantCommonProps = { children?: ReactNode; filterActive?: boolean; resetFilterFn?: () => void };
+const LABEL_RESET_FILTER_BUTTON = "Reset Filter";
 
-export default function VariantCommon({ children, filterActive, resetFilterFn }: VariantCommonProps) {
+export default function CommomFilter({ children, filterActive, resetFilterFn }: CommomFilterProps) {
     //STATES
     const [open, setOpen] = useState(false);
 
@@ -26,7 +27,7 @@ export default function VariantCommon({ children, filterActive, resetFilterFn }:
     });
 
     return (
-        <div className="flex h-8 justify-center gap-1">
+        <div className="flex h-8 justify-center gap-1 w-full">
             {debounceInput}
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
@@ -41,7 +42,7 @@ export default function VariantCommon({ children, filterActive, resetFilterFn }:
                     {popoverContent}
                     <div className="w-full p-1">
                         <Button className="w-full" onClick={resetFilterFn}>
-                            Reset Filter
+                            {LABEL_RESET_FILTER_BUTTON}
                         </Button>
                     </div>
                 </PopoverContent>

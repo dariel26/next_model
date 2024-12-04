@@ -1,49 +1,42 @@
 import { useCallback, useMemo } from "react";
-import { FilterProps } from "../filter";
-import VariantCommon from "./variant-common";
+import CommomFilter from "./commom";
 import DebouncedInput from "@/components/ui/inputs/debounced-input";
 import { Calendar } from "@/components/ui/calendar";
 import { Row } from "@tanstack/react-table";
 import dateUtils from "@/lib/utils/date";
 import SYSTEM_ABOUT from "@/constants/system-about";
+import { DateFilterProps, DateFilterValue } from "./types/index.dt";
+import { DATE_FORMAT_OPTIONS } from "@/constants/date";
 
-export type TDateFilterValueModel = { from?: Date; to?: Date };
-export type DateVariantProps<T> = {} & FilterProps<T>;
+const LABEL_NO_FILTER = "";
 
-export default function DateVariant<T>({ column }: DateVariantProps<T>) {
+export default function DateFilter<T>({ column }: DateFilterProps<T>) {
     //VARIABES
     const setFilterValue = column.setFilterValue;
     const filterValue = column.getFilterValue() as string | undefined;
+
     const { from, to } = useMemo(() => {
-        const _filterValue =
-            filterValue === undefined ? filterValue : (JSON.parse(filterValue) as TDateFilterValueModel);
+        const _filterValue = filterValue === undefined ? filterValue : (JSON.parse(filterValue) as DateFilterValue);
         return _filterValue ?? {};
     }, [filterValue]);
 
-    const filterFeedback = useMemo(() => {
-        if (filterValue === undefined) return "";
+    const labelFilter = useMemo(() => {
+        if (filterValue === undefined) return LABEL_NO_FILTER;
 
         let date1: string | undefined;
         let date2: string | undefined;
+
         if (from !== undefined)
-            date1 = new Date(from).toLocaleDateString(SYSTEM_ABOUT.LOCALE, {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-            });
+            date1 = new Date(from).toLocaleDateString(SYSTEM_ABOUT.LOCALE, DATE_FORMAT_OPTIONS.DATE_NUMERIC);
         if (to !== undefined)
-            date2 = new Date(to).toLocaleDateString(SYSTEM_ABOUT.LOCALE, {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-            });
+            date2 = new Date(to).toLocaleDateString(SYSTEM_ABOUT.LOCALE, DATE_FORMAT_OPTIONS.DATE_NUMERIC);
 
         return `${date1 ? date1 : ""} ${date2 ? " - " + date2 : ""}`;
     }, [from, to, filterValue]);
 
     //EVENTS
     const handleOnChange = useCallback(
-        (value?: TDateFilterValueModel) => {
+        (value?: DateFilterValue) => {
             setFilterValue(JSON.stringify(value));
         },
         [setFilterValue]
@@ -55,24 +48,20 @@ export default function DateVariant<T>({ column }: DateVariantProps<T>) {
     }, [setFilterValue, filterValue]);
 
     return (
-        <VariantCommon filterActive={filterValue !== undefined} resetFilterFn={handleOnResetFilter}>
-            <DebouncedInput disabled value={filterFeedback} onChange={() => {}} />
+        <CommomFilter filterActive={filterValue !== undefined} resetFilterFn={handleOnResetFilter}>
+            <DebouncedInput disabled value={labelFilter} onChange={() => {}} />
             <Calendar initialFocus mode="range" defaultMonth={from} selected={{ from, to }} onSelect={handleOnChange} />
-        </VariantCommon>
+        </CommomFilter>
     );
 }
 
-export function dateFilterFn<TData>(
-    row: Row<TData>,
-    columnId: string,
-    _filterValue: string | undefined,
-): boolean {
+export function dateFilterFn<TData>(row: Row<TData>, columnId: string, _filterValue: string | undefined): boolean {
     if (_filterValue === undefined) return true;
 
     const rowValue = row.getValue(columnId) as Date | undefined | null;
     if (rowValue === null || rowValue === undefined) return false;
 
-    const { from, to } = JSON.parse(_filterValue) as TDateFilterValueModel;
+    const { from, to } = JSON.parse(_filterValue) as DateFilterValue;
     if (from === undefined && to === undefined) return false;
 
     if (from !== undefined && to === undefined) return dateUtils.compareDate(from, rowValue);
