@@ -78,7 +78,7 @@ export default function NumberFilter<T>({ column }: NumberFilterProps<T>) {
 
     return (
         <CommomFilter filterActive={filterValue !== undefined} resetFilterFn={handleOnResetFilter}>
-            <DebouncedInput value={labelFilter} onChange={() => {}} disabled />
+            <DebouncedInput initialValue={labelFilter} onChange={() => {}} disabled />
             <div className="flex flex-col gap-1 p-1">
                 <div>
                     <Select
@@ -107,14 +107,14 @@ export default function NumberFilter<T>({ column }: NumberFilterProps<T>) {
                             className="h-8 text-sm"
                             placeholder="From"
                             type="number"
-                            value={from}
+                            initialValue={from}
                             onChange={(value) => setFrom(value.toString())}
                         />
                         <DebouncedInput
                             className="h-8 text-sm"
                             placeholder="To"
                             type="number"
-                            value={to}
+                            initialValue={to}
                             onChange={(value) => setTo(value.toString())}
                         />
                     </div>
@@ -124,7 +124,7 @@ export default function NumberFilter<T>({ column }: NumberFilterProps<T>) {
                             className="h-8 text-sm"
                             placeholder="Filter..."
                             type="number"
-                            value={to}
+                            initialValue={to}
                             onChange={(value) => setTo(value.toString())}
                         />
                     </div>

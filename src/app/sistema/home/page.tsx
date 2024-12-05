@@ -1,5 +1,5 @@
-import DefaultLayout from "@/components/layouts/default-layout";
+import HeaderBodyLayout from "@/components/layouts/header-body.layout";
 
 export default function HomePage() {
-    return <DefaultLayout title="Home"></DefaultLayout>;
+    return <HeaderBodyLayout title="Home"></HeaderBodyLayout>;
 }

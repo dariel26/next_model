@@ -7,13 +7,21 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "cypress:open": "cypress open"
+        "cypress:open": "cypress open",
+        "db:up": "docker compose up -d --remove-orphans",
+        "db:down": "docker compose down",
+        "db:restart": "yarn db:down && yarn db:up",
+        "prisma:dev": "npx prisma migrate dev",
+        "prisma:pro": "npx prisma migrate deploy"
     },
     "dependencies": {
+        "@hookform/resolvers": "^3.9.1",
+        "@prisma/client": "6.0.1",
         "@radix-ui/react-avatar": "^1.1.1",
         "@radix-ui/react-checkbox": "^1.1.2",
         "@radix-ui/react-dialog": "^1.1.2",
         "@radix-ui/react-dropdown-menu": "^2.1.2",
+        "@radix-ui/react-label": "^2.1.0",
         "@radix-ui/react-popover": "^1.1.2",
         "@radix-ui/react-select": "^2.1.2",
         "@radix-ui/react-separator": "^1.1.0",
@@ -30,9 +38,12 @@
         "react": "19.0.0-rc-66855b96-20241106",
         "react-day-picker": "8.10.1",
         "react-dom": "19.0.0-rc-66855b96-20241106",
-        "react-uuid": "^2.0.0",
+        "react-hook-form": "^7.54.0",
         "tailwind-merge": "^2.5.4",
-        "tailwindcss-animate": "^1.0.7"
+        "tailwindcss-animate": "^1.0.7",
+        "vaul": "^1.1.1",
+        "xlsx": "^0.18.5",
+        "zod": "^3.23.8"
     },
     "devDependencies": {
         "@types/react": "18.3.13",
@@ -43,6 +54,7 @@
         "postcss": "^8",
         "prettier": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.6.8",
+        "prisma": "^6.0.1",
         "tailwindcss": "^3.4.1",
         "ts-node": "^10.9.2",
         "typescript": "^5"

@@ -13,7 +13,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import SYSTEM_ABOUT from "@/constants/system-about";
-import { Calendar, Home, LayoutDashboard, Table2 } from "lucide-react";
+import { Database, Home } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { NavUser } from "../navs/nav-user";
@@ -27,19 +27,9 @@ export function AppSidebar() {
             icon: Home,
         },
         {
-            title: "Calendar",
-            url: "./agenda",
-            icon: Calendar,
-        },
-        {
-            title: "Tabela",
-            url: "./tabela",
-            icon: Table2,
-        },
-        {
-            title: "Dashboard",
-            url: "./dashboards",
-            icon: LayoutDashboard,
+            title: "Modelos",
+            url: "./modelos",
+            icon: Database,
         },
     ];
 

@@ -30,7 +30,7 @@ export default function StringFilter<T>({ column }: StringFilterProps<T>) {
 
     return (
         <CommomFilter filterActive={filterValue !== undefined} resetFilterFn={handleOnResetFilter}>
-            <DebouncedInput value={filterValue ?? ""} onChange={handleOnChange} />
+            <DebouncedInput initialValue={filterValue ?? ""} onChange={handleOnChange} />
             <Command>
                 <CommandInput placeholder="Search..." />
                 <CommandList>

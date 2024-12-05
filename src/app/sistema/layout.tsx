@@ -14,9 +14,7 @@ export default async function SystemLayout(props: SystemLayoutProps) {
     return (
         <SidebarProvider defaultOpen={defaultOpen}>
             <AppSidebar />
-            <SidebarInset>
-                <div className="px-2"> {props.children}</div>
-            </SidebarInset>
+            <SidebarInset>{props.children}</SidebarInset>
         </SidebarProvider>
     );
 }

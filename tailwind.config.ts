@@ -12,8 +12,8 @@ export default {
             colors: {
                 primary: {
                     DEFAULT: "hsl(var(--primary))",
-                    hover: "var(--primary-light)",
-                    active: "var(--primary-dark)",
+                    hover: "hsl(var(--primary-hover))",
+                    active: "hsl(var(--primary-active))",
                     foreground: "hsl(var(--primary-foreground))",
                 },
                 background: "hsl(var(--background))",
