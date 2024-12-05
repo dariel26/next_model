@@ -36,7 +36,7 @@ export default function BooleanFilter<T>({ column }: BooleanFilterProps<T>) {
 
     return (
         <CommomFilter filterActive={filterValue !== undefined} resetFilterFn={handleOnResetFilter}>
-            <DebouncedInput disabled value={filterFeedback} onChange={() => {}} />
+            <DebouncedInput disabled initialValue={filterFeedback} onChange={() => {}} />
             <div className="w-full p-1">
                 <Select
                     value={filterValue ?? LABEL_NO_FILTER}

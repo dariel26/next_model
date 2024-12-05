@@ -49,7 +49,7 @@ export default function DateFilter<T>({ column }: DateFilterProps<T>) {
 
     return (
         <CommomFilter filterActive={filterValue !== undefined} resetFilterFn={handleOnResetFilter}>
-            <DebouncedInput disabled value={labelFilter} onChange={() => {}} />
+            <DebouncedInput disabled initialValue={labelFilter} onChange={() => {}} />
             <Calendar initialFocus mode="range" defaultMonth={from} selected={{ from, to }} onSelect={handleOnChange} />
         </CommomFilter>
     );
