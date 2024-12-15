@@ -5,7 +5,7 @@ import { findUniqueModel } from "../data/model";
 import prisma from "../prisma/client";
 import { createOneCollectionBySpreadsheetsSchema } from "../schemas/collection";
 import xlsxUtils from "../utils/xlsx";
-import { ROUTES } from "@/constants/routes";
+import routeUtils from "../utils/routes";
 
 export async function createOneCollectionBySpreadsheets(modelId: string, formData: FormData) {
     const { files } = createOneCollectionBySpreadsheetsSchema.parse({
@@ -22,5 +22,5 @@ export async function createOneCollectionBySpreadsheets(modelId: string, formDat
     if (!model) throw new Error("Modelo não encontrado!");
 
     await prisma.collection.create({ data: { name: "Nova Coleção", data: filesJsonData, modelId } });
-    redirect(ROUTES.modelList);
+    redirect(routeUtils.modelList.url);
 }

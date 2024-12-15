@@ -13,7 +13,6 @@ import { BookMarked, Sheet } from "lucide-react";
 import { NewCollectionDropdownProps } from "./types";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback } from "react";
-import constants from "@/constants";
 
 export default function NewCollectionDropdown({ ...props }: NewCollectionDropdownProps) {
     //HOOKS
@@ -24,7 +23,6 @@ export default function NewCollectionDropdown({ ...props }: NewCollectionDropdow
     //EVENTS
     const goToSpreadsheetModalPage = useCallback(() => {
         if (typeof modelId !== "string") return;
-        router.push(constants.ROUTES.newCollectionSpreadSheet(modelId));
     }, [modelId]);
 
     return (

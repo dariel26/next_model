@@ -1,6 +1,8 @@
 import { z } from "zod";
 
 export const createOneModelSchema = z.object({
-    name: z.string().max(50, { message: "O nome do modelo deve possuir no máximo 50 caracteres." }),
-    about: z.optional(z.string().max(255, { message: "A descrição do modelo deve possuir no máximo 255 caracteres." })),
+    name: z.string().min(1, "Este campo é requerido.").max(50, { message: "Máximo de 50 caracteres." }).trim(),
+    about: z.optional(
+        z.string().max(255, { message: "A descrição do modelo deve possuir no máximo 255 caracteres." }).trim()
+    ),
 });

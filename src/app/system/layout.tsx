@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/sidebars/app-sidebar";
+import { SystemSidebar } from "@/components/sidebars/system-sidebar/system-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { cookies } from "next/headers";
 import { SystemLayoutProps } from "./types";
@@ -9,7 +9,7 @@ export default async function SystemLayout(props: SystemLayoutProps) {
 
     return (
         <SidebarProvider defaultOpen={defaultOpen}>
-            <AppSidebar />
+            <SystemSidebar />
             <SidebarInset>{props.children}</SidebarInset>
             {props.modal}
         </SidebarProvider>

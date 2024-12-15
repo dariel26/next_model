@@ -9,7 +9,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { ModalNewModelProps } from "./types";
-import FormNewModel from "@/components/forms/model/new-model";
+import NewModelForm from "@/components/forms/new-model/new-model.form";
 
 export default function ModalNewModel(props: ModalNewModelProps) {
     return (
@@ -23,7 +23,7 @@ export default function ModalNewModel(props: ModalNewModelProps) {
                     </DialogDescription>
                 </DialogHeader>
                 <div className="flex size-full flex-col p-2">
-                    <FormNewModel />
+                    <NewModelForm />
                 </div>
             </DialogContent>
         </Dialog>

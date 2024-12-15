@@ -4,6 +4,7 @@ import { ChangeEvent, useCallback } from "react";
 import DebouncedInput from "../../ui/inputs/debounced-input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SearchInputProps } from "./types";
+import { Search } from "lucide-react";
 
 export const SEARCH_PARAM_KEY = "search";
 
@@ -32,6 +33,14 @@ export default function SearchInput(props: SearchInputProps) {
     );
 
     return (
-        <DebouncedInput initialValue={initialSearch} onChange={updateSearchParams} placeholder={props.placeholder} />
+        <div className="relative flex">
+            <DebouncedInput
+                className="pe-8"
+                initialValue={initialSearch}
+                onChange={updateSearchParams}
+                placeholder={props.placeholder}
+            />
+            <Search size={20} className="absolute end-0 me-2 self-center text-secondary-foreground" />
+        </div>
     );
 }

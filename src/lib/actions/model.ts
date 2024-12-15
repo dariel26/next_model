@@ -3,11 +3,15 @@
 import { redirect } from "next/navigation";
 import prisma from "../prisma/client";
 import { createOneModelSchema } from "../schemas/model";
-import { ROUTES } from "@/constants/routes";
+import routeUtils from "../utils/routes";
 
-export async function createOneModel(formData: FormData) {
-    const { name, about } = createOneModelSchema.parse({ name: formData.get("name"), about: formData.get("about") });
+export async function createOneModel(_: any, upcomingData: FormData) {
+    const objectData = Object.fromEntries(upcomingData);
+    const { data, error } = await createOneModelSchema.safeParseAsync(objectData);
 
-    await prisma.model.create({ data: { name, about } });
-    redirect(ROUTES.modelList);
+    if (error) return error.flatten().fieldErrors;
+    if (!data) throw new Error("Nenhum dado foi encontrado.");
+
+    await prisma.model.create({ data });
+    redirect(routeUtils.modelList.url);
 }

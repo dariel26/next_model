@@ -1,5 +1,21 @@
 import * as XLSX from "xlsx";
 
+function fileListToJsonArray(fileList: FileList): any[] {
+    const fileArray = Array.from(fileList);
+    const jsonArray = [];
+
+    for (const file of fileArray) {
+        const workbook = XLSX.read(file);
+        const sheetNameArray = workbook.SheetNames;
+        for (const sheetName of sheetNameArray) {
+            const newJsonArray = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { defval: undefined });
+            jsonArray.push(...newJsonArray);
+        }
+    }
+
+    return jsonArray;
+}
+
 const xlsxUtils = {
     xlsxBufferToJson<T>(data: ArrayBuffer): T[] {
         const dadosTransformados = [];
@@ -10,6 +26,8 @@ const xlsxUtils = {
         }
         return dadosTransformados;
     },
+
+    fileListToJsonArray,
 };
 
 export default xlsxUtils;

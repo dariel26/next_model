@@ -11,8 +11,8 @@
         "db:up": "docker compose up -d --remove-orphans",
         "db:down": "docker compose down",
         "db:restart": "yarn db:down && yarn db:up",
-        "prisma:dev": "npx prisma migrate dev",
-        "prisma:pro": "npx prisma migrate deploy"
+        "prisma:dev": "npx prisma migrate dev && npx prisma generate",
+        "prisma:pro": "npx prisma migrate deploy && npx prisma generate"
     },
     "dependencies": {
         "@hookform/resolvers": "^3.9.1",
@@ -26,6 +26,7 @@
         "@radix-ui/react-select": "^2.1.2",
         "@radix-ui/react-separator": "^1.1.0",
         "@radix-ui/react-slot": "^1.1.0",
+        "@radix-ui/react-tabs": "^1.1.2",
         "@radix-ui/react-tooltip": "^1.1.4",
         "@tanstack/react-table": "^8.20.5",
         "class-variance-authority": "^0.7.0",

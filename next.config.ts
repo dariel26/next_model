@@ -1,4 +1,4 @@
-import constants from "@/constants";
+import routeUtils from "@/lib/utils/routes";
 import type { NextConfig } from "next";
 
 //TODO: ignoreDuringBuilds equals true deve ser removido. O ideal é que os erros do eslint sejam mostrados durante o desenvolvimento e não apenas no build
@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
         return [
             {
                 source: "/",
-                destination: constants.ROUTES.home,
+                destination: routeUtils.modelList.url,
                 permanent: true,
             },
         ];

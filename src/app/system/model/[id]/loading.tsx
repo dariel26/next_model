@@ -1,3 +1,3 @@
-export default async function ModelLoading() {
-    return <section>Carregando modelo...</section>;
+export default function ModelIdLoading() {
+    return <section>Carregando informações do modelo...</section>;
 }
